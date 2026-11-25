@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>вика</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#101010;--paper:#f6f5f0;--blue:#2b2bff;--or:#ff6a1a;--sh:5px 5px 0 var(--ink)}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Rubik",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.45}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:12px 4vw;background:var(--paper);border-bottom:2px solid var(--ink)}
+.logo{font-weight:800;font-size:1.7rem;margin-right:auto;letter-spacing:-.03em}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{padding:6px 12px;border:2px solid transparent;font-weight:500}
+nav a.on{border-color:var(--ink);background:var(--or)}
+.cartb{background:var(--blue);color:#fff;border:2px solid var(--ink);padding:8px 16px;font-weight:500;box-shadow:3px 3px 0 var(--ink)}
+section,.pg{padding:5vw 4vw}
+h1,h2{font-weight:800;letter-spacing:-.03em}
+h2{font-size:clamp(1.8rem,5vw,3rem);margin-bottom:28px}
+.pg h1{font-size:clamp(2.4rem,7vw,5rem);margin-bottom:24px}
+.pg p{max-width:60ch;margin-bottom:16px;font-size:1.1rem}
+.btn{display:inline-block;padding:14px 26px;border:2px solid var(--ink);background:var(--or);color:var(--ink);font:inherit;font-weight:800;box-shadow:var(--sh);cursor:pointer;margin:0 12px 12px 0;transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+.btn.alt{background:#fff}
+.hero{background:var(--blue);color:#fff;padding:6vw 4vw;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;border-bottom:2px solid var(--ink);overflow:hidden}
+.hero h1{font-size:clamp(3.2rem,11vw,9rem);line-height:.9;letter-spacing:-.04em}
+.hero h1 span{display:block}
+.hero h1 span:nth-child(2){color:transparent;-webkit-text-stroke:2px #fff}
+.hero p{font-size:1.25rem;margin:20px 0 28px;max-width:26ch}
+.stage{position:relative;height:400px}
+.stage .ph{position:absolute;bottom:0;box-shadow:var(--sh)}
+.stage .ph:nth-child(1){left:0;transform:rotate(-10deg)}
+.stage .ph:nth-child(2){left:30%;z-index:2}
+.stage .ph:nth-child(3){right:0;transform:rotate(9deg)}
+.ph{width:var(--w,110px);aspect-ratio:1/2.05;border:4px solid var(--ink);border-radius:20px;background:linear-gradient(155deg,var(--a),var(--b));color:var(--t);position:relative;display:grid;place-items:center;font-weight:800;font-size:calc(var(--w,110px)/6.5)}
+.ph i{position:absolute;top:8px;left:8px;width:26%;aspect-ratio:1;border-radius:7px;background:var(--ink);box-shadow:inset 0 0 0 3px #444}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;margin-bottom:28px}
+.card{background:#fff;border:2px solid var(--ink);padding:18px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:12px}
+.card a{display:flex;flex-direction:column;align-items:center;gap:12px}
+.card h3{font-size:1.1rem}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto}
+.sm{border:2px solid var(--ink);background:var(--ink);color:#fff;padding:7px 14px;font:inherit;font-weight:500;cursor:pointer}
+.chip{border:2px solid var(--ink);background:#fff;padding:8px 14px;font:inherit;cursor:pointer;margin:0 8px 10px 0}
+.chip.on{background:var(--ink);color:#fff}
+.band{background:var(--or);border-block:2px solid var(--ink)}
+.band a,.steps div,.stats div{display:block;background:var(--ink);color:#fff;padding:28px;font-weight:800;font-size:1.3rem}
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:20px}
+.show{background:#fff;border:2px solid var(--ink);box-shadow:var(--sh);display:grid;place-items:center;padding:40px}
+.big{font-size:2rem;font-weight:800;display:block;margin:8px 0}
+.opt{display:flex;align-items:center;gap:10px;margin:16px 0;flex-wrap:wrap}
+.opt>span{min-width:70px;font-weight:500}
+.sw{width:34px;height:34px;border:2px solid var(--ink);cursor:pointer;background:linear-gradient(135deg,var(--a),var(--b))}
+.sw.on{outline:3px solid var(--or);outline-offset:2px}
+.qty{display:flex;align-items:center;gap:10px;font-weight:800}
+.qty button{width:34px;height:34px;border:2px solid var(--ink);background:#fff;font:inherit;font-weight:800;cursor:pointer}
+table{border-collapse:collapse;width:100%;margin-top:20px}
+td{padding:10px 0;border-bottom:2px solid var(--ink)}
+td:last-child{text-align:right;font-weight:500}
+.line{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:18px;align-items:center;background:#fff;border:2px solid var(--ink);padding:14px;margin-bottom:14px}
+.total{font-size:1.8rem;font-weight:800;margin:24px 0}
+.stats,.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin:28px 0}
+form{display:grid;gap:14px;max-width:460px}
+input,textarea{font:inherit;padding:12px;border:2px solid var(--ink);background:#fff}
+.back{display:inline-block;font-weight:500;border-bottom:2px solid var(--ink)}
+footer{background:var(--ink);color:var(--paper);padding:40px 4vw;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer nav a{padding:4px 10px}
+#t{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ink);color:#fff;padding:12px 22px;font-weight:500;transition:transform .2s;z-index:9}
+#t.show{transform:translate(-50%,0)}
+@media(max-width:800px){.hero,.pd{grid-template-columns:1fr}.stage{height:320px}.line{grid-template-columns:auto 1fr;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#/" data-nav="">вика</a>
+  <nav>
+    <a href="#/catalog" data-nav="catalog">вика</a>
+    <a href="#/delivery" data-nav="delivery">вика</a>
+    <a href="#/about" data-nav="about">вика</a>
+    <a href="#/contacts" data-nav="contacts">вика</a>
+  </nav>
+  <a class="cartb" href="#/cart" id="cc">вика (0)</a>
+</header>
+<main id="app"></main>
+<footer>
+  <a class="logo" href="#/">вика</a>
+  <nav><a href="#/catalog">вика</a><a href="#/delivery">вика</a><a href="#/about">вика</a><a href="#/contacts">вика</a><a href="#/cart">вика</a></nav>
+  <span>вика вика вика</span>
+</footer>
+<div id="t" role="status">вика ✓</div>
+
+<script>
+var V="вика",$=function(s){return document.querySelector(s)},app=$("#app");
+var K=[["#2b2bff","#8a8aff","#fff"],["#ff6a1a","#ffc247","#101010"],["#101010","#55555f","#fff"],["#e9e6dc","#bdb8a6","#101010"],["#0f9d74","#8be8c8","#101010"],["#e8357a","#ffa3c4","#101010"]];
+var PR=[14990,19990,24990,29990,34990,39990,49990,59990,69990,79990,89990,109990];
+var P=PR.map(function(p,i){return{id:i,n:V+" "+String(i+1).padStart(2,"0"),p:p,c:i%6,scr:(5.4+i*.13).toFixed(1),bat:3600+i*160,cam:12+i*4}});
+var MEM=[128,256,512],EX=[0,5000,12000],RNG=[[0,1e9],[0,3e4],[3e4,6e4],[6e4,1e9]];
+var cart=[],flt=0,srt=0,sel={id:-1,c:0,m:0,q:1};
+try{cart=JSON.parse(localStorage.getItem("vk")||"[]")}catch(e){}
+function save(){try{localStorage.setItem("vk",JSON.stringify(cart))}catch(e){}}
+function fmt(n){return n.toLocaleString("ru-RU")+" "+V}
+function ip(x){return (P[x.id].p+EX[x.m])*x.q}
+function para(n){return Array(n).fill(V).join(" ")+"."}
+function ph(c,w,x){var k=K[c];return '<div class="ph '+(x||"")+'" style="--a:'+k[0]+';--b:'+k[1]+';--t:'+k[2]+';--w:'+w+'px"><i></i>'+V+'</div>'}
+function card(p){return '<div class="card"><a href="#/phone/'+p.id+'">'+ph(p.c,110)+'<h3>'+p.n+'</h3></a><div class="row"><b>'+fmt(p.p)+'</b><button class="sm" data-act="quick" data-id="'+p.id+'">'+V+'</button></div></div>'}
+function add(x){var k=cart.find(function(y){return y.id==x.id&&y.c==x.c&&y.m==x.m});k?k.q+=x.q:cart.push(x)}
+function toast(){var t=$("#t");t.classList.add("show");clearTimeout(toast.i);toast.i=setTimeout(function(){t.classList.remove("show")},1200)}
+
+function vHome(){
+  return '<div class="hero"><div><h1><span>вика</span><span>вика</span><span>вика</span></h1><p>'+para(8)+'</p><a class="btn" href="#/catalog">вика вика</a><a class="btn alt" href="#/about">вика</a></div><div class="stage" aria-hidden="true">'+ph(0,150)+ph(1,190)+ph(5,150)+'</div></div>'
+  +'<section><h2>вика вика</h2><div class="grid">'+[2,5,8,11].map(function(i){return card(P[i])}).join("")+'</div><a class="btn" href="#/catalog">вика вика вика</a></section>'
+  +'<section class="band"><h2>вика вика вика</h2><div class="grid"><a href="#/delivery">вика вика</a><a href="#/about">вика вика вика</a><a href="#/contacts">вика вика</a></div></section>';
+}
+function vCat(){
+  var l=P.filter(function(p){return p.p>=RNG[flt][0]&&p.p<RNG[flt][1]});
+  if(srt)l=l.slice().sort(function(a,b){return srt==1?a.p-b.p:b.p-a.p});
+  var chips=[V,"< 30 000","30 000 – 60 000","> 60 000"].map(function(t,i){return '<button class="chip'+(i==flt?" on":"")+'" data-act="f" data-i="'+i+'">'+t+'</button>'}).join("");
+  return '<section><h2>вика вика</h2>'+chips+'<button class="chip" data-act="s">'+V+' '+["⇅","↑","↓"][srt]+'</button><div class="grid" style="margin-top:18px">'+l.map(card).join("")+'</div></section>';
+}
+function vPhone(id){
+  if(!(id>=0&&id<P.length))return '<div class="pg"><h1>вика</h1><a class="btn" href="#/catalog">вика</a></div>';
+  if(sel.id!==id)sel={id:id,c:P[id].c,m:0,q:1};
+  var p=P[id],k=K[sel.c];
+  var sw=K.map(function(c,i){return '<button class="sw'+(i==sel.c?" on":"")+'" style="--a:'+c[0]+';--b:'+c[1]+'" data-act="col" data-i="'+i+'" aria-label="'+V+'"></button>'}).join("");
+  var mem=MEM.map(function(m,i){return '<button class="chip'+(i==sel.m?" on":"")+'" data-act="mem" data-i="'+i+'">'+m+' '+V+'</button>'}).join("");
+  var rel=P.filter(function(x){return x.id!=id}).slice(0,4).map(card).join("");
+  return '<section><a class="back" href="#/catalog">← '+V+'</a><div class="pd"><div class="show">'+ph(sel.c,200)+'</div><div><h1>'+p.n+'</h1><span class="big">'+fmt(p.p+EX[sel.m])+'</span>'
+  +'<div class="opt"><span>'+V+'</span>'+sw+'</div><div class="opt"><span>'+V+'</span>'+mem+'</div>'
+  +'<div class="opt"><span>'+V+'</span><div class="qty"><button data-act="qd" aria-label="'+V+'">−</button>'+sel.q+'<button data-act="qu" aria-label="'+V+'">+</button></div></div>'
+  +'<button class="btn" data-act="addsel">'+V+' '+V+'</button><a class="btn alt" href="#/cart">'+V+'</a>'
+  +'<table><tr><td>'+V+'</td><td>'+p.scr+' '+V+'</td></tr><tr><td>'+V+'</td><td>'+p.bat+' '+V+'</td></tr><tr><td>'+V+'</td><td>'+p.cam+' '+V+'</td></tr><tr><td>'+V+'</td><td>'+MEM[sel.m]+' '+V+'</td></tr></table></div></div></section>'
+  +'<section><h2>вика вика</h2><div class="grid">'+rel+'</div></section>';
+}
+function vCart(){
+  if(!cart.length)return '<div class="pg"><h1>вика вика</h1><p>'+para(5)+'</p><a class="btn" href="#/catalog">вика вика</a></div>';
+  var rows=cart.map(function(x,i){return '<div class="line">'+ph(x.c,56)+'<div><b>'+P[x.id].n+'</b><br>'+MEM[x.m]+' '+V+'</div><div class="qty"><button data-act="cq" data-i="'+i+'" data-d="-1" aria-label="'+V+'">−</button><span>'+x.q+'</span><button data-act="cq" data-i="'+i+'" data-d="1" aria-label="'+V+'">+</button></div><b>'+fmt(ip(x))+'</b><button class="sm" data-act="rm" data-i="'+i+'">'+V+'</button></div>'}).join("");
+  return '<section><h2>вика вика</h2>'+rows+'<div class="total">'+V+': '+fmt(cart.reduce(function(s,x){return s+ip(x)},0))+'</div><button class="btn" data-act="buy">вика вика</button><a class="btn alt" href="#/catalog">вика</a></section>';
+}
+function vAbout(){
+  return '<div class="pg"><h1>вика вика</h1><p>'+para(22)+'</p><p>'+para(30)+'</p><div class="stats"><div>12 '+V+'</div><div>5 000 '+V+'</div><div>24 '+V+'</div></div><a class="btn" href="#/catalog">вика вика</a><a class="btn alt" href="#/contacts">вика</a></div>';
+}
+function vDel(){
+  return '<div class="pg"><h1>вика вика</h1><p>'+para(18)+'</p><div class="steps"><div>1. вика</div><div>2. вика вика</div><div>3. вика вика вика</div></div><a class="btn" href="#/cart">вика</a><a class="btn alt" href="#/catalog">вика вика</a></div>';
+}
+function vCon(){
+  return '<div class="pg"><h1>вика</h1><p>'+V+': 8 800 000 00 00</p><form id="f"><input aria-label="'+V+'" placeholder="'+V+'" required><input aria-label="'+V+'" placeholder="'+V+' '+V+'" required><textarea aria-label="'+V+'" rows="4" placeholder="'+V+' '+V+' '+V+'"></textarea><div><button class="btn" type="submit">вика вика</button></div></form></div>';
+}
+function vDone(){
+  return '<div class="pg"><h1>вика вика вика!</h1><p>'+para(6)+'</p><a class="btn" href="#/">вика</a><a class="btn alt" href="#/catalog">вика вика</a></div>';
+}
+function route(sc){
+  var s=(location.hash.slice(2)||"").split("/"),r=s[0],h;
+  if(r=="catalog")h=vCat();else if(r=="phone")h=vPhone(+s[1]);else if(r=="cart")h=vCart();else if(r=="about")h=vAbout();else if(r=="delivery")h=vDel();else if(r=="contacts")h=vCon();else if(r=="done")h=vDone();else h=vHome();
+  app.innerHTML=h;
+  $("#cc").textContent=V+" ("+cart.reduce(function(n,x){return n+x.q},0)+")";
+  document.querySelectorAll("[data-nav]").forEach(function(e){e.classList.toggle("on",e.dataset.nav==(r||""))});
+  var f=$("#f");if(f)f.onsubmit=function(e){e.preventDefault();location.hash="#/done"};
+  if(sc)scrollTo(0,0);
+}
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]");if(!b)return;
+  var a=b.dataset.act,i=+b.dataset.i,id=+b.dataset.id;
+  if(a=="quick"){add({id:id,c:P[id].c,m:0,q:1});toast()}
+  else if(a=="col")sel.c=i;
+  else if(a=="mem")sel.m=i;
+  else if(a=="qd")sel.q=Math.max(1,sel.q-1);
+  else if(a=="qu")sel.q++;
+  else if(a=="addsel"){add({id:sel.id,c:sel.c,m:sel.m,q:sel.q});toast()}
+  else if(a=="f")flt=i;
+  else if(a=="s")srt=(srt+1)%3;
+  else if(a=="cq"){cart[i].q+=+b.dataset.d;if(cart[i].q<1)cart.splice(i,1)}
+  else if(a=="rm")cart.splice(i,1);
+  else if(a=="buy"){cart=[];save();location.hash="#/done";return}
+  save();route();
+});
+addEventListener("hashchange",function(){route(1)});
+route();
+</script>
+</body>
+</html>
